@@ -25,48 +25,49 @@ export function MainLayout() {
           <NavLink to="/">
             <h1 className="text-xl font-extrabold uppercase">Pasuyo</h1>
           </NavLink>
-          <nav className="flex items-center gap-2">
-            {user ? (
-              <>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Menu />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 mx-4">
-                    <DropdownMenuGroup>
-                      <DropdownMenuItem>
-                        <User className="mr-2 h-4 w-4" />
-                        <span>Profile</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate("/cart")}>
-                        <ShoppingCart className="mr-2 h-4 w-4" />
-                        <span>Cart</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => {
-                        logout();
-                        navigate("/");
-                      }}
-                    >
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Logout</span>
+          {user ? (
+            <nav className="flex items-center">
+              <Button
+                onClick={() => navigate("/cart")}
+                size="icon"
+                variant="ghost"
+              >
+                <ShoppingCart className="w-5 h-5" />
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 mx-4">
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
                     </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </>
-            ) : (
-              <>
-                <Button onClick={() => navigate("/login")} variant="ghost">
-                  Login
-                </Button>
-                <Button onClick={() => navigate("/signup")}>Sign up</Button>
-              </>
-            )}
-          </nav>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => {
+                      logout();
+                      navigate("/");
+                    }}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </nav>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Button onClick={() => navigate("/login")} variant="ghost">
+                Login
+              </Button>
+              <Button onClick={() => navigate("/signup")}>Sign up</Button>
+            </div>
+          )}
         </header>
         <Separator />
       </div>
