@@ -7,6 +7,7 @@ import { useCart } from "@/stores/cart-store";
 import { useNavigate } from "react-router-dom";
 import { ProductImage } from "@/features/products/components/product-image";
 import { getTotalItems, getTotalPrice } from "@/utils/cartUtils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function Cart() {
   const { data: items, isLoading } = useCartProducts();
@@ -21,8 +22,40 @@ export function Cart() {
 
   const navigate = useNavigate();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (!items || isLoading) {
+    return (
+      <>
+        <div className="flex items-center justify-between mt-3 mb-4">
+          <Skeleton className="h-4 w-10" />
+          <div className="flex gap-6">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-4 w-24" />
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          {Array.from({ length: 2 }).map((_, index) => {
+            return (
+              <div key={index} className="flex gap-3 h-24">
+                <Skeleton className="w-6 h-6" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="w-32 h-6" />
+                  <Skeleton className="w-28 h-6" />
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <Skeleton className="w-8 h-8 rounded-full" />
+                      <Skeleton className="w-4 h-6" />
+                      <Skeleton className="w-8 h-8 rounded-full" />
+                    </div>
+                    <Skeleton className="w-12 h-6" />
+                  </div>
+                </div>
+                <Skeleton className="w-20 h-20" />
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
   }
 
   if (items?.length === 0) {
