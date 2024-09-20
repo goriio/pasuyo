@@ -54,7 +54,7 @@ export function CheckoutRoute() {
   const isDeliveryAddressEmpty = Object.values(deliveryAddress).every(
     (value) => value === ""
   );
-  const filteredItems = items.filter((item) => item.checked);
+  const filteredItems = items?.filter((item) => item.checked);
 
   function handleDeliveryFormSubmit(
     values: z.infer<typeof deliveryAddressForm>
@@ -85,7 +85,7 @@ export function CheckoutRoute() {
         {
           deliveryAddress: Object.values(deliveryAddress).join(", "),
           additionalContactNumber: "09",
-          orderItems: filteredItems.map(({ id, quantity }) => ({
+          orderItems: filteredItems?.map(({ id, quantity }) => ({
             product: id,
             quantity,
           })),
@@ -120,7 +120,7 @@ export function CheckoutRoute() {
       <h2 className="font-semibold text-lg">Checkout</h2>
       <Separator className="mt-4 mb-8" />
       <div className="flex flex-col gap-4">
-        {filteredItems.map((item) => {
+        {filteredItems?.map((item) => {
           return (
             <div key={item.id} className="flex gap-3 h-24">
               <div className="flex-1 space-y-2">
@@ -248,7 +248,7 @@ export function CheckoutRoute() {
         className="flex items-center justify-between"
       >
         <span>Place order</span>
-        <span>PHP {formatPrice(getTotalPrice(items))}</span>
+        <span>PHP {items && formatPrice(getTotalPrice(items))}</span>
       </Button>
     </>
   );
