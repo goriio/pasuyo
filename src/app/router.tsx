@@ -6,6 +6,7 @@ import { CartRoute } from "./routes/cart";
 import { ProductsRoute } from "./routes/products";
 import { MainLayout } from "@/components/layouts/main-layout";
 import { CheckoutRoute } from "./routes/checkout";
+import { ProtectedRoute } from "./routes/protected-route";
 
 const router = createBrowserRouter([
   {
@@ -17,16 +18,22 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/cart",
-        element: <CartRoute />,
-      },
-      {
-        path: "/products",
-        element: <ProductsRoute />,
-      },
-      {
-        path: "/checkout",
-        element: <CheckoutRoute />,
+        path: "/",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "/cart",
+            element: <CartRoute />,
+          },
+          {
+            path: "/products",
+            element: <ProductsRoute />,
+          },
+          {
+            path: "/checkout",
+            element: <CheckoutRoute />,
+          },
+        ],
       },
     ],
   },

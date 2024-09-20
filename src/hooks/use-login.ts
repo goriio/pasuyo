@@ -3,7 +3,7 @@ import { api } from "@/lib/api-client";
 import { useAuth, User } from "@/stores/auth-store";
 import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type LoginCredentials = {
   contactNumberOrEmail: string;
@@ -14,6 +14,7 @@ export function useLogin() {
   const { login } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   return useMutation({
     mutationFn: async (credentials: LoginCredentials) => {
@@ -37,7 +38,7 @@ export function useLogin() {
     },
     onSuccess: (user: User) => {
       login(user);
-      navigate("/");
+      navigate(state?.path || "/");
       toast({ description: "Logged in" });
     },
     onError: (error: Error) => {

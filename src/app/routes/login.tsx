@@ -24,8 +24,8 @@ export function Login() {
     resolver: zodResolver(loginFormSchema),
   });
 
-  async function onSubmit(credentials: z.infer<typeof loginFormSchema>) {
-    await login(credentials);
+  function onSubmit(credentials: z.infer<typeof loginFormSchema>) {
+    login(credentials);
   }
 
   return (
