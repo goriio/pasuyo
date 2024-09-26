@@ -12,11 +12,18 @@ import {
 } from "../ui/dropdown-menu";
 import { LogOut, Menu, ShoppingCart, User } from "lucide-react";
 import { Separator } from "../ui/separator";
+import { useEffect } from "react";
 
 export function MainLayout() {
-  const { user } = useAuth();
-  const { mutate: logout } = useLogout();
+  const { user, isTokenExpired, logout } = useAuth();
+  const { mutate: logoutMutate } = useLogout();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isTokenExpired()) {
+      logout();
+    }
+  }, [isTokenExpired, logout]);
 
   return (
     <>
@@ -50,7 +57,7 @@ export function MainLayout() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={() => {
-                      logout();
+                      logoutMutate();
                       navigate("/");
                     }}
                   >

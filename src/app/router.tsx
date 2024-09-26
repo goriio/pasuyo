@@ -18,16 +18,16 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/products",
+        element: <ProductsRoute />,
+      },
+      {
         path: "/",
         element: <ProtectedRoute />,
         children: [
           {
             path: "/cart",
             element: <CartRoute />,
-          },
-          {
-            path: "/products",
-            element: <ProductsRoute />,
           },
           {
             path: "/checkout",
