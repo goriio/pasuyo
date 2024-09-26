@@ -7,6 +7,7 @@ import { ProductsRoute } from "./routes/products";
 import { MainLayout } from "@/components/layouts/main-layout";
 import { CheckoutRoute } from "./routes/checkout";
 import { ProtectedRoute } from "./routes/protected-route";
+import { NotFound } from "./routes/not-found";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <ProductsRoute />,
+      },
+      {
+        path: "*",
+        element: <NotFound />
       },
       {
         path: "/",
